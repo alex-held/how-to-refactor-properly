@@ -3,9 +3,12 @@ import model.ClientBuilder
 
 fun main(args: Array<String>) {
 	val client = createClientInternal( "Alexander", "Held" ,"0_alexheld","Cologne", "MegaCorp")
-	println("Created client is: $client")
+	println("Created client is: " + client.toConsoleString() )
 }
 
+fun Client.toConsoleString(): String {
+	return "${twitter.handle} ${company.name}"
+}
 
 
 fun createClientInternal(fn: String, ln: String, twitter: String, city: String, company: String): Client {
