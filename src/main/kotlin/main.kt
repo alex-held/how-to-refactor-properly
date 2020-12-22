@@ -35,17 +35,17 @@ fun createClient(c: (ClientBuilder) -> Unit): Client {
 }
 
 fun createClient(): Client {
-	return createClient( {
-			it.firstName = "Alexander"
-			it.lastName = "Held"
+	return createClient {
+		it.firstName = "Alexander"
+		it.lastName = "Held"
 
-			val twitterBuilder = TwitterBuilder()
-			twitterBuilder.handle = "0_alexheld"
-			it.twitter = twitterBuilder.build()
+		val twitterBuilder = TwitterBuilder()
+		twitterBuilder.handle = "0_alexheld"
+		it.twitter = twitterBuilder.build()
 
-			val companyBuilder = CompanyBuilder()
-			companyBuilder.name = "MegaCorp"
-			companyBuilder.city = "Cologne"
-			it.company = companyBuilder.build()
-		})
+		val companyBuilder = CompanyBuilder()
+		companyBuilder.name = "MegaCorp"
+		companyBuilder.city = "Cologne"
+		it.company = companyBuilder.build()
+	}
 }
