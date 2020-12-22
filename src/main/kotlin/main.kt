@@ -35,19 +35,22 @@ fun createClient(c: Consumer<ClientBuilder>): Client {
 }
 
 fun createClientOriginal(): Client {
+	return createClient(
+		object : Consumer<ClientBuilder> {
+			override fun accept(builder: ClientBuilder) {
+				builder.firstName = "Alexander"
+				builder.lastName = "Held"
 
-	val builder = ClientBuilder()
-	builder.firstName = "Alexander"
-	builder.lastName = "Held"
+				val twitterBuilder = TwitterBuilder()
+				twitterBuilder.handle = "0_alexheld"
+				builder.twitter = twitterBuilder.build()
 
-	val twitterBuilder = TwitterBuilder()
-	twitterBuilder.handle = "0_alexheld"
-	builder.twitter = twitterBuilder.build()
+				val companyBuilder = CompanyBuilder()
+				companyBuilder.city = "Cologne"
+				companyBuilder.name = "MegaCorp"
+				builder.company = companyBuilder.build()
+			}
 
-	val companyBuilder = CompanyBuilder()
-	companyBuilder.city = "Cologne"
-	companyBuilder.name = "MegaCorp"
-	builder.company = companyBuilder.build()
-
-	return builder.build()
+		}
+	)
 }
