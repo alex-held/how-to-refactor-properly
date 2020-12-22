@@ -1,44 +1,38 @@
 import model.*
 import org.junit.jupiter.api.Test
+import java.util.function.*
 import kotlin.test.*
 
 internal class MainKtTest {
 
-	private fun createSubject(
-		fn: String? = null,
-		ln: String? = null,
-		twitter: String? = null,
-		city: String? = null,
-		company: String? = null,
-	): Client = Client(fn ?: "Alexander", ln ?: "Held",
-		Company(company ?: "MegaCorp", city ?: "Cologne"),
-		Twitter(twitter ?: "0_alexheld"))
+	private val defaultClient = Client("Alexander", "Held", Company("MegaCorp", "Cologne"), Twitter("0_alexheld"))
 
-
-	@Test
-	fun createClientInternal_should_return_client_with_same_values() {
-		val expected = createSubject()
-
-		val result = createClientInternal(
-			expected.firstName,
-			expected.lastName,
-			expected.twitter.handle,
-			expected.company.city,
-			expected.company.name
-		)
-
-		assertEquals(expected.firstName, result.firstName)
-		assertEquals(expected.lastName, result.lastName)
-		assertEquals(expected.twitter.handle, result.twitter.handle)
-		assertEquals(expected.company.name, result.company.name)
-		assertEquals(expected.company.city, result.company.city)
+	private fun createConsumer(): Consumer<ClientBuilder> {
+		return Consumer<ClientBuilder> {
+			it.firstName = "Alexander"
+			it.lastName = "Held"
+			it.twitter = Twitter("0_alexheld")
+			it.company = Company("MegaCorp", "Cologne")
+		}
 	}
 
 	@Test
-	fun consoleString_should_return_correct_description(){
-		val expected = "0_alexheld MegaCorp"
-		val subject = createSubject()
+	fun createClient_should_return_client_with_same_values() {
+		val expected = defaultClient
 
+		val actual = createClient(createConsumer())
+
+		assertEquals(expected.firstName, actual.firstName)
+		assertEquals(expected.lastName, actual.lastName)
+		assertEquals(expected.twitter.handle, actual.twitter.handle)
+		assertEquals(expected.company.name, actual.company.name)
+		assertEquals(expected.company.city, actual.company.city)
+	}
+
+	@Test
+	fun consoleString_should_return_correct_description() {
+		val expected = "0_alexheld MegaCorp"
+		val subject = defaultClient
 		val actual = subject.consoleString
 
 		assertEquals(expected, actual)
