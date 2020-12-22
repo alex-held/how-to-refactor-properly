@@ -20,7 +20,9 @@ internal class MainKtTest {
 	fun createClient_should_return_client_with_same_values_when_providing_consumer() {
 		val expected = defaultClient
 
-		val actual = createClient(createConsumer())
+		val actual = createClient {
+			createConsumer().accept(this)
+		}
 
 		assertEquals(expected.firstName, actual.firstName)
 		assertEquals(expected.lastName, actual.lastName)
