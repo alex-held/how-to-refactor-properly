@@ -36,17 +36,17 @@ fun createClient(c: Consumer<ClientBuilder>): Client {
 
 fun createClientOriginal(): Client {
 	return createClient(
-		Consumer { builder ->
-			builder.firstName = "Alexander"
-			builder.lastName = "Held"
+		Consumer { it ->
+			it.firstName = "Alexander"
+			it.lastName = "Held"
 
 			val twitterBuilder = TwitterBuilder()
 			twitterBuilder.handle = "0_alexheld"
-			builder.twitter = twitterBuilder.build()
+			it.twitter = twitterBuilder.build()
 
 			val companyBuilder = CompanyBuilder()
 			companyBuilder.name = "MegaCorp"
-			builder.company = companyBuilder.build()
+			it.company = companyBuilder.build()
 		}
 	)
 }
