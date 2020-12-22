@@ -38,16 +38,20 @@ fun createClient(): Client {
 	return createClient {
 		firstName = "Alexander"
 		lastName = "Held"
-
 		twitter {
 			handle = "0_alexheld"
 		}
-
-		val companyBuilder = CompanyBuilder()
-		companyBuilder.name = "MegaCorp"
-		companyBuilder.city = "Cologne"
-		company = companyBuilder.build()
+		company {
+			name = "MegaCorp"
+			city = "Cologne"
+		}
 	}
+}
+
+
+fun ClientBuilder.company(c: CompanyBuilder.() -> Unit)  {
+	company = CompanyBuilder().apply(c).build()
+	// see ClientBuilder.twitter(c: TwitterBuilder.() -> Unit) for an explanation
 }
 
 fun ClientBuilder.twitter(c: TwitterBuilder.() -> Unit)  {
