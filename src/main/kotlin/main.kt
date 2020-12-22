@@ -1,9 +1,9 @@
 import model.*
-import model.ClientBuilder
+import java.util.function.*
 
 fun main(args: Array<String>) {
-	val client = createClientInternal( "Alexander", "Held" ,"0_alexheld","Cologne", "MegaCorp")
-	println("Created client is: " + client.consoleString )
+	val client = createClientInternal("Alexander", "Held", "0_alexheld", "Cologne", "MegaCorp")
+	println("Created client is: " + client.consoleString)
 }
 
 val Client.consoleString: String
@@ -28,7 +28,14 @@ fun createClientInternal(fn: String, ln: String, twitter: String, city: String, 
 }
 
 
-fun createClientOriginal() : Client {
+fun createClient(c: Consumer<ClientBuilder>): Client {
+	val builder = ClientBuilder()
+	c.accept(builder)
+	return builder.build()
+}
+
+fun createClientOriginal(): Client {
+
 	val builder = ClientBuilder()
 	builder.firstName = "Alexander"
 	builder.lastName = "Held"
