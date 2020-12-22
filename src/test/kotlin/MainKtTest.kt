@@ -17,10 +17,22 @@ internal class MainKtTest {
 	}
 
 	@Test
-	fun createClient_should_return_client_with_same_values() {
+	fun createClient_should_return_client_with_same_values_when_providing_consumer() {
 		val expected = defaultClient
 
 		val actual = createClient(createConsumer())
+
+		assertEquals(expected.firstName, actual.firstName)
+		assertEquals(expected.lastName, actual.lastName)
+		assertEquals(expected.twitter.handle, actual.twitter.handle)
+		assertEquals(expected.company.name, actual.company.name)
+		assertEquals(expected.company.city, actual.company.city)
+	}
+
+	@Test
+	fun createClient_should_return_client_with_same_values() {
+		val expected = defaultClient
+		val actual = createClient()
 
 		assertEquals(expected.firstName, actual.firstName)
 		assertEquals(expected.lastName, actual.lastName)

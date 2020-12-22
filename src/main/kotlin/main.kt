@@ -34,7 +34,7 @@ fun createClient(c: Consumer<ClientBuilder>): Client {
 	return builder.build()
 }
 
-fun createClientOriginal(): Client {
+fun createClient(): Client {
 	return createClient(
 		Consumer {
 			it.firstName = "Alexander"
@@ -46,6 +46,7 @@ fun createClientOriginal(): Client {
 
 			val companyBuilder = CompanyBuilder()
 			companyBuilder.name = "MegaCorp"
+			companyBuilder.city = "Cologne"
 			it.company = companyBuilder.build()
 		}
 	)
