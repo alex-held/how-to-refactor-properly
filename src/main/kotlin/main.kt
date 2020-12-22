@@ -36,7 +36,7 @@ fun createClient(c: Consumer<ClientBuilder>): Client {
 
 fun createClientOriginal(): Client {
 	return createClient(
-		Consumer { it ->
+		Consumer {
 			it.firstName = "Alexander"
 			it.lastName = "Held"
 
