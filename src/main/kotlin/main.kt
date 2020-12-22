@@ -39,13 +39,35 @@ fun createClient(): Client {
 		firstName = "Alexander"
 		lastName = "Held"
 
-		val twitterBuilder = TwitterBuilder()
-		twitterBuilder.handle = "0_alexheld"
-		twitter = twitterBuilder.build()
+		twitter {
+			handle = "0_alexheld"
+		}
 
 		val companyBuilder = CompanyBuilder()
 		companyBuilder.name = "MegaCorp"
 		companyBuilder.city = "Cologne"
 		company = companyBuilder.build()
 	}
+}
+
+fun ClientBuilder.twitter(c: TwitterBuilder.() -> Unit)  {
+	twitter = TwitterBuilder().apply(c).build()
+
+	/* Let's break the following statement down
+	[1] TwitterBuilder().apply(c).build()
+	-> fun buildTwitter(lambdaWithTwitterBuilderReceiver: TwitterBuilder.() -> Unit): Twitter {
+			var builder = TwitterBuilder()
+			lambdaWithTwitterBuilderReceiver(builder)
+			return builder.build()
+		}
+
+	[2] twitter = TwitterBuilder().apply(c).build()
+	We are currently in the context of ClientBuilder, that's why we can access getters and setters without using 'this'.
+	We want to assigning the return value of [1] to ClientBuilder.setTwitter()
+
+	It all translates into: (at compile time!!)
+	this.setTwitter(buildTwitter(c))
+
+	No magic
+	*/
 }
