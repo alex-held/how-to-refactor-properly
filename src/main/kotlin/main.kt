@@ -28,15 +28,14 @@ fun createClientInternal(fn: String, ln: String, twitter: String, city: String, 
 }
 
 
-fun createClient(c: Consumer<ClientBuilder>): Client {
+fun createClient(c: (ClientBuilder) -> Unit): Client {
 	val builder = ClientBuilder()
-	c.accept(builder)
+	c(builder)
 	return builder.build()
 }
 
 fun createClient(): Client {
-	return createClient(
-		Consumer {
+	return createClient( {
 			it.firstName = "Alexander"
 			it.lastName = "Held"
 
@@ -48,6 +47,5 @@ fun createClient(): Client {
 			companyBuilder.name = "MegaCorp"
 			companyBuilder.city = "Cologne"
 			it.company = companyBuilder.build()
-		}
-	)
+		})
 }
