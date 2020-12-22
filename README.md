@@ -1,4 +1,4 @@
-# Welcome to kotlin-lab 👋
+# Welcome to the guide how-to-refactor-properly 👋
 ![Version](https://img.shields.io/badge/version-v1-blue.svg?cacheSeconds=2592000)
 [![Documentation](https://img.shields.io/badge/documentation-yes-brightgreen.svg)](https://alexheld.io/posts/0001-how-to-refactor-properly)
 [![Twitter: 0_alexheld](https://img.shields.io/twitter/follow/0_alexheld.svg?style=social)](https://twitter.com/0_alexheld)
